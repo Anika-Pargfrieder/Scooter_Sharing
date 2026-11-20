@@ -1,0 +1,13 @@
+' Part 1: your class diagram for the E-Scooter Sharing story.
+' Notation: see "UML Class Diagrams" in the OO Basics unit.
+' Replace the example below with your own classes, enums and relationships.
+@startuml
+hide empty methods
+
+class MyClass {
+    +MyClass(string)
+    +string SomeProperty [readonly]
+    +bool DoSomething(int)
+}
+
+@enduml
