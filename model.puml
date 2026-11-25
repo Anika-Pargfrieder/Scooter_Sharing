@@ -4,15 +4,27 @@
 @startuml
 hide empty methods
 
+@startuml
 class Customer {
     -string _customerEmail
     +string Name
     +string CustomerTier
+    +double Balance
+    -bool rideCanBeStarted
     Customer(name, email, CustomerTier)
 }
 
-enum Tier{
-    Standart
-    Student
-    Premium
+class Scooter {
++string model {get;}
+-static int _fleetNumber = 1001
+-int _range
+-int _batteriePercentage
++Scooter(model, fleetNumber, batteriePercentage)
++Scooter (model, fleetNumber} :this(model, fleetNumber, 100)
 }
+
+class Ride {
++bool RideCanBeStarted {get; private set}
++int NumberOfRides
+}
+@enduml
