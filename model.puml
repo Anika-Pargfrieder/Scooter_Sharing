@@ -1,36 +1,61 @@
 ' Part 1: your class diagram for the E-Scooter Sharing story.
 ' Notation: see "UML Class Diagrams" in the OO Basics unit.
-' Replace the example below with your own classes, enums and relationships.
-@startuml
-hide empty methods
 
 @startuml
+
 class Customer {
     -string _customerEmail
     +string Name
-    +string CustomerTier
-    +double Balance
-    -bool rideCanBeStarted
-    Customer(name, email, CustomerTier)
+    +string CustomerEmail {get; set}
+    +Tier Tier {get; set}
+    +decimal Balance {get; private set}
+    +bool CanStartRide [readonly]
+
+    +Customer(name, email, tier = Standard)
+    +BuySubscription(tier)
+    +AddToBalance(amount) : bool
+    +PayRide(amount)
 }
 
 class Scooter {
-+string model {get;}
--static int _fleetNumber = 1001
--int _range
--int _batteriePercentage
-+Scooter(model, fleetNumber, batteriePercentage)
-+Scooter (model, fleetNumber} :this(model, fleetNumber, 100)
+    +string Model {get;}
+    {static} -int _nextFleetNumber = 1001
+    +int FleetNumber {get;}
+    -int _batteryPercentage
+    +int BatteryPercentage {get; private set}
+    +int Range [readonly]
+    +bool IsAvailable [readonly]
+
+    +Scooter(model)
+    +Scooter(model, batteryPercentage)
+    +Charge(percentage) : bool
+    +UseBattery(kilometers)
 }
 
 class Ride {
-+bool RideCanBeStarted {get; private set}
-+int NumberOfRides
+    +Customer Customer {get;}
+    +Scooter Scooter {get;}
+    +DateTime StartTime {get; private set}
+    +DateTime EndTime {get; private set}
+    +int AmountOfKilometers {get; private set}
+    +int Minutes [readonly]
+    +bool IsEnded {get; private set}
+    +decimal PriceOfRide {get; private set}
+
+    +Ride(customer, scooter)
+    +StartRide() : bool
+    +EndRide(endTime, amountOfKilometers) : bool
+    +CalculatePrice(tier) : decimal
 }
 
-enum Tier{
-    Standart
+enum Tier {
+    Standard
     Student
     Premium
 }
+
+Customer "1" <-- "0..*" Ride : Customer
+Scooter "1" <-- "0..*" Ride : Scooter
+Scooter "0..1" --> "1" Ride : CurrentRide
+
 @enduml
