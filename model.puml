@@ -4,10 +4,15 @@
 @startuml
 hide empty methods
 
-class MyClass {
-    +MyClass(string)
-    +string SomeProperty [readonly]
-    +bool DoSomething(int)
+class Customer {
+    -string _customerEmail
+    +string Name
+    +string CustomerTier
+    Customer(name, email, CustomerTier)
 }
 
-@enduml
+enum Tier{
+    Standart
+    Student
+    Premium
+}
