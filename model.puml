@@ -27,4 +27,10 @@ class Ride {
 +bool RideCanBeStarted {get; private set}
 +int NumberOfRides
 }
+
+enum Tier{
+    Standart
+    Student
+    Premium
+}
 @enduml
