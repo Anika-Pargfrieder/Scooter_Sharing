@@ -26,8 +26,8 @@ class Scooter {
     +int Range [readonly]
     +bool IsAvailable [readonly]
 
-    +Scooter(model)
-    +Scooter(model, batteryPercentage)
+    +Scooter(model, _nextFleetNumber)
+    +Scooter(model, _nextFleetNumber, batteryPercentage)
     +Charge(percentage) : bool
     +UseBattery(kilometers)
 }
