@@ -4,10 +4,9 @@
 @startuml
 
 class Customer {
-    -string _customerEmail
     +string Name {get; set;}
     +string CustomerEmail {get; set}
-    +Tier Tier {get; set}
+    +Tier Tier {get; private set}
     +decimal Balance {get; private set}
     +bool CanStartRide [readonly]
 
@@ -25,9 +24,10 @@ class Scooter {
     +int BatteryPercentage {get; private set}
     +int Range [readonly]
     +bool IsAvailable [readonly]
++Ride? CurrentRide {get; set;}
 
-    +Scooter(model, _nextFleetNumber) : this(model, _nextFleetNumber, 100)
-    +Scooter(model, _nextFleetNumber, batteryPercentage)
+    +Scooter(model) : this(model, 100)
+    +Scooter(model, batteryPercentage)
     +Charge(percentage) : bool
     +UseBattery(kilometers)
 }
@@ -35,17 +35,17 @@ class Scooter {
 class Ride {
     +Customer Customer {get;}
     +Scooter Scooter {get;}
-    +DateTime StartTime {get; private set}
-    +DateTime EndTime {get; private set}
+    +DateTime? StartTime {get; private set}
+    +DateTime? EndTime {get; private set}
     +int AmountOfKilometers {get; private set}
     +int Minutes [readonly]
+
     +bool IsEnded {get; private set}
     +decimal PriceOfRide {get; private set}
 
     +Ride(customer, scooter)
     +StartRide() : bool
-    +EndRide(endTime, amountOfKilometers) : bool
-    +CalculatePrice(tier) : decimal
+    +EndRide(amountOfKilometers) : bool
 }
 
 enum Tier {
@@ -56,6 +56,6 @@ enum Tier {
 
 Customer "1" <-- "0..*" Ride : Customer
 Scooter "1" <-- "0..*" Ride : Scooter
-Scooter "0..1" --> "1" Ride : CurrentRide
+Scooter "1" --> "0..1" Ride : CurrentRide
 
 @enduml
