@@ -5,7 +5,7 @@
 
 class Customer {
     -string _customerEmail
-    +string Name
+    +string Name {get; set;}
     +string CustomerEmail {get; set}
     +Tier Tier {get; set}
     +decimal Balance {get; private set}
